@@ -1,85 +1,71 @@
-# aws-secret-access-monitoring
-Cloud Security Monitoring &amp; Alerting System (AWS)
-Overview
+AWS Secret Access Monitoring & Alerting System
 
-This project implements a cloud-native security monitoring system that detects and alerts on unauthorized access to secrets stored in AWS Secrets Manager.
+This project demonstrates a cloud-native security monitoring system built with AWS Secrets Manager, CloudTrail, CloudWatch, and SNS to detect and alert on sensitive secret access in real time.
 
-The system logs API activity using AWS CloudTrail, processes logs in CloudWatch, and triggers real-time alerts via SNS when a secret is accessed.
+🚀 Features
 
-Architecture
+Monitor GetSecretValue API calls via CloudTrail management events
 
-Services Used:
+Stream CloudTrail logs to CloudWatch Logs
 
-AWS Secrets Manager
+Detect secret access using CloudWatch metric filters
 
-AWS CloudTrail
+Trigger real-time alerts with CloudWatch Alarms
 
-Amazon S3
+Send email notifications via SNS
 
-Amazon CloudWatch Logs
+Apply IAM least-privilege roles for secure service integration
+
+🧠 AWS Services Used
+
+Secrets Manager (Secure secret storage)
+
+CloudTrail (API activity logging)
+
+S3 (CloudTrail log storage)
+
+CloudWatch Logs
 
 CloudWatch Metric Filters
 
 CloudWatch Alarms
 
-Amazon SNS
+SNS (Email notifications)
 
-IAM Roles
+IAM
 
-Architecture Flow:
+🧪 How It Works
 
-Secret stored in AWS Secrets Manager
+A secret is securely stored in AWS Secrets Manager.
 
-Secret retrieval triggers GetSecretValue API call
+When GetSecretValue is called, CloudTrail logs the management event.
 
-CloudTrail logs management event
+CloudTrail delivers logs to CloudWatch Logs.
 
-Logs delivered to CloudWatch Logs
+A metric filter scans logs for GetSecretValue.
 
-Metric filter detects GetSecretValue pattern
+If detected (≥1 event), a CloudWatch Alarm enters ALARM state.
 
-Alarm triggered when metric ≥ 1
+SNS sends a real-time email notification.
 
-SNS sends email notification
+🔍 Troubleshooting & Validation
 
-(You should include a simple architecture diagram here.)
+Verified CloudTrail event history for GetSecretValue logs
 
-Security Design Decisions
+Tested metric filter using sample CloudTrail JSON data
 
-Used least-privilege IAM role for CloudTrail → CloudWatch integration
+Manually triggered alarm via AWS CLI
 
-Excluded AWS KMS and RDS Data API events to reduce noise
+Corrected alarm statistic from Average → Sum to ensure accurate detection
 
-Used static threshold alarm for sensitive resource access
+Confirmed SNS subscription and email delivery
 
-Switched alarm statistic from Average to Sum to ensure proper detection
+🧰 Future Enhancements
 
-Testing & Troubleshooting
+Rebuild full infrastructure using Terraform (Infrastructure as Code)
 
-Tested detection by:
+Add automated remediation (Lambda to rotate or revoke access)
 
-Accessing secret via AWS Console
+Integrate Slack or webhook notifications
 
-Accessing secret via AWS CLI
-
-Troubleshooting Steps:
-
-Verified CloudTrail event history
-
-Confirmed log delivery timestamps
-
-Tested metric filter using sample CloudTrail JSON logs
-
-Manually triggered alarm via CLI
-
-Validated SNS subscription confirmation
-
-Key Learnings
-
-Difference between management vs data events
-
-How CloudWatch metric filters parse JSON logs
-
-Importance of alarm statistic selection (Sum vs Average)
-
-Real-world troubleshooting across multiple AWS services
+Add anomaly detection for unusual secret access patterns
