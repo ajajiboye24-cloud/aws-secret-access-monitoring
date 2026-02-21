@@ -1,5 +1,5 @@
 # AWS Secret Access Monitoring & Alerting System
-
+<img width="1478" height="554" alt="architecture-complete" src="https://github.com/user-attachments/assets/cf14061a-e8c1-458c-9b3b-298abe6db65a" />
 This project demonstrates a cloud-native security monitoring system built with **AWS Secrets Manager, CloudTrail, CloudWatch, and SNS** to detect and alert on sensitive secret access in real time.
 
 ## 🚀 Features
